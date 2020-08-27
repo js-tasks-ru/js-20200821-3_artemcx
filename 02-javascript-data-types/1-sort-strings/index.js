@@ -5,7 +5,7 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
-    const sortedArr = arr.concat();
+    const sortedArr = [...arr];
     const collator = new Intl.Collator('ru', {caseFirst: 'upper'});
     return sortedArr.sort((o1, o2) => {
             switch (param) {
