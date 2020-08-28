@@ -11,10 +11,8 @@ export function sortStrings(arr, param = 'asc') {
             switch (param) {
                 case 'asc':
                     return collator.compare(o1, o2);
-                    break;
                 case 'desc':
                     return -collator.compare(o1, o2);
-                    break;
                 default :
                   throw new Error(`Illegal argument: ${param}`);
             }
