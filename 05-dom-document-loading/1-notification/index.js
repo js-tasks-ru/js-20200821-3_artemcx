@@ -54,5 +54,4 @@ export default class NotificationMessage {
         this.remove();
         // this.element = null;
     }
-
 }
