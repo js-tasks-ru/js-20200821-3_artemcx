@@ -1,18 +1,25 @@
 export default class NotificationMessage {
-    element;
-    isNotificationShown = false;
-    timeoutID = 0;
+    static activeNotification;
 
-    constructor(message, {duration, type} = {}) {
+    constructor(message, {
+        duration = 2000,
+        type = 'success'
+    } = {}) {
+
+        if (NotificationMessage.activeNotification) {
+            NotificationMessage.activeNotification.remove();
+        }
+
         this.message = message;
-        this.duration = duration;
+        this.durationInSeconds = (duration / 1000) + 's';
         this.type = type;
+        this.duration = duration;
+
         this.render();
     }
 
     get template() {
-        return `
-        <div class="notification ${this.type}" style="--value:20s">
+        return `<div class="notification ${this.type}" style="--value:${this.durationInSeconds}">
             <div class="timer"></div>
             <div class="inner-wrapper">
                 <div class="'notification-header">${this.type}</div>
@@ -20,10 +27,8 @@ export default class NotificationMessage {
                     ${this.message}
                 </div>
             </div>
-        </div>
-        `
+        </div>`;
     }
-
 
     render() {
         const element = document.createElement('div');
@@ -32,27 +37,26 @@ export default class NotificationMessage {
 
         this.element = element.firstElementChild;
 
+        NotificationMessage.activeNotification = this.element;
     }
 
-    show(target) {
-        if (!this.isNotificationShown) {
-            this.timeoutID = setTimeout(() => {
-                this.remove()
-            }, this.duration)
-            this.isNotificationShown = true;
-            target ? target.appendChild(this.element) :
-                document.body.appendChild(this.element);
-        }
+    show(parent = document.body) {
+        parent.append(this.element);
+
+        setTimeout(() => {
+            this.remove();
+        }, this.duration);
+
+        return this.element;
     }
 
     remove() {
         this.element.remove();
-        this.isNotificationShown = false;
     }
 
     destroy() {
         this.remove();
-        // this.element = null;
+        NotificationMessage.activeNotification = null;
     }
 
 }
