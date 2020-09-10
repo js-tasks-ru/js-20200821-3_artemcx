@@ -1,4 +1,5 @@
 export default class SortableTable {
+<<<<<<< HEAD
   element;
   subElements = {};
   headerConfig = [];
@@ -166,5 +167,7 @@ export default class SortableTable {
     this.remove();
     this.subElements = {};
   }
+=======
+>>>>>>> 7ac96fc... Added task SortableTable v2 компонент без динамической загрузки данных
 
 }
