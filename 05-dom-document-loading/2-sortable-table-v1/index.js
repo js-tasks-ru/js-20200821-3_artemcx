@@ -22,7 +22,7 @@ export default class SortableTable {
         return `
             <div class="sortable-table__cell" data-id="${id}" data-sortable="${sortable}">
                 <span>${title}</span>
-                ${this.getHeaderSortingArrow}
+                ${this.getHeaderSortingArrow()}
             </div>            
         `;
     }
